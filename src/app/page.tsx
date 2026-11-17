@@ -6,21 +6,15 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'chat' | 'library'>('chat');
 
   return (
-    <main className="w-full bg-zinc-950 text-zinc-100 selection:bg-indigo-500 selection:text-white">
+    <main className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-zinc-950 text-zinc-100 selection:bg-indigo-500 selection:text-white">
       
       {/* ================= SECTION 1: THE INTRO / HERO ================= */}
       <section className="h-screen w-full flex flex-col items-center justify-between px-6 py-12 snap-start">
-        {/* Top minimal header */}
-        <div className="w-full max-w-6xl flex justify-between items-center">
+        {/* Top minimal header (Without Skip Intro button) */}
+        <div className="w-full max-w-6xl flex justify-start items-center">
           <span className="font-bold tracking-wider text-lg bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
             Smart Study Assistant
           </span>
-          <a 
-            href="#workspace" 
-            className="text-xs uppercase tracking-widest px-4 py-2 rounded-full border border-zinc-800 hover:border-indigo-500 transition-colors"
-          >
-            Skip Intro ↓
-          </a>
         </div>
 
         {/* Center Intro Pitch */}
