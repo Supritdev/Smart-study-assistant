@@ -1,69 +1,116 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState<'chat' | 'library'>('chat');
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="w-full h-screen overflow-y-scroll snap-y snap-mandatory bg-zinc-950 text-zinc-100 selection:bg-indigo-500 selection:text-white">
+      
+      {/* ================= SECTION 1: THE INTRO / HERO ================= */}
+      <section className="h-screen w-full flex flex-col items-center justify-between px-6 py-12 snap-start">
+        {/* Top minimal header (Without Skip Intro button) */}
+        <div className="w-full max-w-6xl flex justify-start items-center">
+          <span className="font-bold tracking-wider text-lg bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+            Smart Study Assistant
+          </span>
+        </div>
+
+        {/* Center Intro Pitch */}
+        <div className="max-w-3xl text-center space-y-6">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+            Turn your study notes into an <span className="text-indigo-400">AI-powered conversation.</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-zinc-400 text-lg md:text-xl font-light">
+            Upload your PDFs, textbooks, or notes. Ask questions, get instant context-aware answers, and master your subjects effortlessly.
           </p>
+          <div className="pt-4">
+            <a 
+              href="#workspace" 
+              className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-8 py-4 rounded-xl shadow-lg shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5"
+            >
+              Get Started
+              <span>↓</span>
+            </a>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Scroll indicator prompt */}
+        <div className="text-zinc-500 text-xs tracking-widest uppercase animate-bounce">
+          Scroll down to launch workspace
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ================= SECTION 2: THE APP WORKSPACE ================= */}
+      <div id="workspace"></div>
+      <section className="h-screen w-full flex overflow-hidden border-t border-zinc-900 bg-zinc-900/50 snap-start">
+        
+        {/* Sidebar */}
+        <aside className="w-64 border-r border-zinc-800 p-4 flex flex-col justify-between hidden md:flex">
+          <div className="space-y-6">
+            <div className="font-bold px-2">Workspace</div>
+            <nav className="space-y-1">
+              <button 
+                onClick={() => setActiveTab('chat')}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'chat' ? 'bg-indigo-600 text-white' : 'text-zinc-400 hover:bg-zinc-800'}`}
+              >
+                💬 Study Chat
+              </button>
+              <button 
+                onClick={() => setActiveTab('library')}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === 'library' ? 'bg-indigo-600 text-white' : 'text-zinc-400 hover:bg-zinc-800'}`}
+              >
+                📚 Document Library
+              </button>
+            </nav>
+          </div>
+          <div className="text-xs text-zinc-500 px-2">
+            Smart Study Assistant v1.0
+          </div>
+        </aside>
+
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col h-full bg-zinc-950">
+          {activeTab === 'chat' ? (
+            <div className="flex-1 flex flex-col h-full justify-between p-6">
+              <div className="border-b border-zinc-800 pb-4">
+                <h2 className="font-semibold text-lg">Chat Workspace</h2>
+                <p className="text-xs text-zinc-400">Ask questions based on your loaded study materials.</p>
+              </div>
+
+              {/* Chat history placeholder */}
+              <div className="flex-1 flex items-center justify-center text-zinc-600 text-sm">
+                Type your question below or upload a document to begin.
+              </div>
+
+              {/* Chat input box */}
+              <div className="pt-4">
+                <div className="flex gap-2 max-w-4xl mx-auto">
+                  <input 
+                    type="text" 
+                    placeholder="Ask a question about your notes..." 
+                    className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                  <button className="bg-indigo-600 hover:bg-indigo-500 px-6 py-3 rounded-xl text-sm font-medium transition-colors">
+                    Send
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="flex-1 p-6">
+              <h2 className="font-semibold text-lg mb-2">Document Library</h2>
+              <p className="text-xs text-zinc-400 mb-6">Manage your uploaded PDFs and study guides.</p>
+              <div className="border-2 border-dashed border-zinc-800 rounded-2xl p-12 text-center text-zinc-500">
+                Drag and drop your study PDFs here, or click to browse.
+              </div>
+            </div>
+          )}
+        </div>
+
+      </section>
+
+    </main>
   );
 }
